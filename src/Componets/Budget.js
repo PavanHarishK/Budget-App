@@ -1,36 +1,38 @@
 import React, { useState } from "react";
+import ExpensesDisplayTable from "./Expenses_Component/ExpensesDisplayTable";
 
 const Budget = () => {
   const [budgetInputData, setBudgetInputData] = useState("");
   const [savedBudgetData, setSavedBudgetData] = useState("");
+  const [balanceAmount, setBalanceAmount] = useState(0);
+  const [LatestBalanceAmount, setLatestBalanceAmount] = useState("");
   const [title, setTitle] = useState("");
   const [cost, setCost] = useState("");
   const [inputs, setInputs] = useState("");
 
 
   //form submit Handler after submiting data will store on input
-  const budgetInputSubmitHandler = (event) => {
+  const setBudgetHandler = (event) => {
     event.preventDefault();
     setSavedBudgetData(budgetInputData);
     setBudgetInputData("");
   };
-  //const budget=setSavedBudgetData
-  // input data
-  const buttonChangeHandler = (event) => {
+
+  const budgetInputChangeHandler = (event) => {
     setBudgetInputData(event.target.value);
   };
-  // expense Input form
-  //To change title
+
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
   };
+
   //to change cost
   const costChangeHandler = (event) => {
     setCost(event.target.value);
   };
 
   //balance Amount Handler
- 
+
 
   const expensesInputSubmitHandler = (event) => {
     event.preventDefault();
@@ -39,48 +41,51 @@ const Budget = () => {
       title: title,
       cost: cost,
     };
-    setInputs({...inputs, newInputs});
-    setTitle("");
-    setCost("");
-    
     //checking the budget and saving it to local storage
     const enteredAmount = parseInt(newInputs.cost)
     const budgetData = parseInt(savedBudgetData)
-    console.log(enteredAmount)
-    console.log(budgetData)
-    
-    if (enteredAmount <= budgetData) {
-      let balanceAmount =  budgetData - enteredAmount;
-        if(balanceAmount >= enteredAmount){
-            balanceAmount = balanceAmount - enteredAmount
-        }
-        console.log(balanceAmount)
-    } else {
+    debugger;
+    let aa = balanceAmount !==0 ? LatestBalanceAmount : budgetData;
+    // let bl = balanceAmount;
+    if (enteredAmount <= aa && LatestBalanceAmount !== 0) {
+      if (balanceAmount === 0) {
+        let amount = budgetData - enteredAmount;
+        setBalanceAmount(amount);
+        setLatestBalanceAmount(amount);
+      }
+      else {
+        let amount = balanceAmount - enteredAmount;
+        setBalanceAmount(amount);
+        setLatestBalanceAmount(amount);
+      }
+      setInputs([...inputs, newInputs]);
+      setTitle("");
+      setCost("");
+    }
+    else {
       alert("You have already spent this amount");
       return;
     }
-    
-    console.log(newInputs)
   }
-
 
   return (
     <div>
       <h2>Budget App</h2>
 
-      <form onSubmit={budgetInputSubmitHandler}>
+      <form onSubmit={setBudgetHandler}>
         <h3>Set Your Budget</h3>
         <input
           type="number"
           value={budgetInputData}
           placeholder="Total Budget Amount"
-          onChange={buttonChangeHandler}
+          onChange={budgetInputChangeHandler}
         />
         <button type="submit">Set Budget</button>
       </form>
       {savedBudgetData && (
         <div>
           <p>Total Budget Amount : {savedBudgetData} </p>
+          <p>Total Balance Amount : {LatestBalanceAmount} </p>
           <div>
             <h3>Expenses Input</h3>
             <form onSubmit={expensesInputSubmitHandler}>
@@ -103,6 +108,7 @@ const Budget = () => {
           </div>
         </div>
       )}
+      {inputs && <ExpensesDisplayTable inputs={inputs} />}
     </div>
   );
 };

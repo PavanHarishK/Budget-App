@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ExpensesInputForm from "./ExpensesInputForm";
 
 const ExpensesDisplayTable = ({ inputs }) => {
 
@@ -12,8 +11,7 @@ const ExpensesDisplayTable = ({ inputs }) => {
   const expensesItemsCount =(index)=>{
     setIndex(index +1)
   }
-  console.log(expensesItemsCount)
-
+  
   return (
     <div>
       <h3>Expenses table</h3>
@@ -35,7 +33,6 @@ const ExpensesDisplayTable = ({ inputs }) => {
           </tbody>
         </table>
       )}
-      {ExpensesDisplayTable && <ExpensesInputForm index={index}/>}
     </div>
   );
 };
