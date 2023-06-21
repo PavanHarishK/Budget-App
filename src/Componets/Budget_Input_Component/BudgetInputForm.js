@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import TotalData from "../TotalExpensesData_Componet/TotalData";
+// import TotalData from "../TotalExpensesData_Componet/TotalData";
+import ExpensesInputForm from "../Expenses_Component/ExpensesInputForm";
 
 const BudgetInputForm = ({inputs}) => {
   const [budgetInputData, setBudgetInputData] = useState("");
@@ -19,8 +20,10 @@ const BudgetInputForm = ({inputs}) => {
 
   return (
     <div>
-      <h3>Set Your Budget</h3>
+      <h2>Budget App</h2>
+      
       <form onSubmit={submitHandler}>
+        <h3>Set Your Budget</h3>
         <input
           type="number"
           value={budgetInputData}
@@ -29,10 +32,8 @@ const BudgetInputForm = ({inputs}) => {
         />
         <button type="submit">Set Budget</button>
       </form>
-      {savedBudgetData && <TotalData/>}
-      {savedBudgetData && <div> <p> Total Budget:{savedBudgetData}</p> 
-          {/*<p>{inputs.cost}</p> */}
-      </div>}
+      {savedBudgetData && <ExpensesInputForm savedBudgetData = {savedBudgetData}/>}
+      
     </div>
   );
 };

@@ -6,7 +6,6 @@ import ExpensesInputForm from "./Componets/Expenses_Component/ExpensesInputForm"
 function App() {
   return (
     <div className="App">
-      <h2>Budget App</h2>
       <BudgetInputForm />
       <ExpensesInputForm />
       <ExpensesDisplayTable />
