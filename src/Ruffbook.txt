@@ -1,0 +1,32 @@
+if (!inputs || inputs.length === 0) {
+    return null;
+  }
+
+{inputs.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>Expenses Title</th>
+              <th>Expenses Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            {inputs.map((inputs, index) => (
+              <tr key={index}>
+                <td>{inputs.title}</td>
+                <td>{inputs.cost}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+
+
+////
+
+amount nundi expencess minius cheyali 
+apudu balace amount entha ani save cheyali 
+next time aa balance nundi expencess ni minis cheyali
+if expensess is grater than balace need to stop and return you balace is low 
+else u need to do calculation 
